@@ -1,17 +1,25 @@
 package main.java.hu.mitro.linkedlist2string;
 
 public class Kata {
-	static StringBuilder sb = new StringBuilder();
-	static final String ARROW = " -> ";
+	private static final String ARROW = " -> ";
+	private static StringBuilder sb;
 
 	public static String stringify(Node list) {
+		if (null == list) {
+			return "null";
+		}
+		sb = new StringBuilder();
+		recursiveProcessing(list);
+		return sb.toString();
+	}
+
+	private static void recursiveProcessing(Node list) {
 		if (null == list.getNext()) {
 			sb.append(list.getData() + ARROW + "null");
 		} else {
 			sb.append(list.getData() + ARROW);
-			stringify(list.getNext());
+			recursiveProcessing(list.getNext());
 		}
-		return sb.toString();
 	}
 
 	public static void main(String[] args) {
