@@ -1,4 +1,4 @@
-package main.java.hu.mitro.balancednumber;
+package main.java.hu.mitro.specialnumbersseries.balancednumber;
 
 public class Solution {
 

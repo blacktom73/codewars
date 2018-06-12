@@ -1,4 +1,4 @@
-package main.java.hu.mitro.strongnumber;
+package main.java.hu.mitro.specialnumbersseries.strongnumber;
 
 import static org.junit.Assert.assertEquals;
 

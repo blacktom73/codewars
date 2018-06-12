@@ -1,4 +1,4 @@
-package main.java.hu.mitro.disariumnumber;
+package main.java.hu.mitro.specialnumbersseries.disariumnumber;
 
 public class DisariumNumber {
 

@@ -1,4 +1,4 @@
-package main.java.hu.mitro.balancednumber;
+package main.java.hu.mitro.specialnumbersseries.balancednumber;
 
 import static org.junit.Assert.assertEquals;
 
