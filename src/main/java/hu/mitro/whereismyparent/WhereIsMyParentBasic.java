@@ -17,42 +17,9 @@ import java.util.Arrays;
  * @author Mitró Tamás
  *
  */
-public class WhereIsMyParent {
+public class WhereIsMyParentBasic {
 
 	static String findChildren(final String text) {
-		// char[] chars = text.toCharArray();
-		// List<Character> upperChars = new ArrayList<>();
-		// List<Character> lowerChars = new ArrayList<>();
-		// List<Character> sortedChars = new ArrayList<>();
-		// for (char ch : chars) {
-		// if (ch >= 'A' && ch <= 'Z') {
-		// upperChars.add(ch);
-		// } else {
-		// lowerChars.add(ch);
-		// }
-		// }
-		// upperChars.sort(null);
-		// lowerChars.sort(null);
-		//
-		// int index = 0;
-		// for (char upperChar : upperChars) {
-		// sortedChars.add(upperChar);
-		// char nextLowerChar = lowerChars.get(index);
-		// while (index < lowerChars.size()
-		// && lowerChars.get(index).equals(nextLowerChar)) {
-		// sortedChars.add(lowerChars.get(index));
-		// index++;
-		// }
-		// }
-		//
-		// return sortedChars.toString();
-		// }
-		//
-		// public static void main(String[] args) {
-		// String inputString = "aAbaBb";
-		// String resultString = findChildren(inputString);
-		// System.out.println(resultString);
-		//
 		if ("".equals(text)) {
 			return "";
 		}
@@ -90,11 +57,11 @@ public class WhereIsMyParent {
 		sortedIndex = 0;
 		lowerIndex = 0;
 		int sampleCharIndex = 0;
+		if (upperChars[0] == Character.toUpperCase(lowerChars[0])) {
+			sortedChars[sortedIndex] = upperChars[0];
+			sortedIndex++;
+		}
 		for (int i = 0; i < upperChars.length; i++) {
-			if (upperChars[0] == Character.toUpperCase(lowerChars[0])) {
-				sortedChars[sortedIndex] = upperChars[i];
-				sortedIndex++;
-			}
 			while (lowerIndex < lowerChars.length
 					&& lowerChars[sampleCharIndex] == lowerChars[lowerIndex]) {
 				sortedChars[sortedIndex] = lowerChars[lowerIndex];
@@ -104,6 +71,13 @@ public class WhereIsMyParent {
 			sampleCharIndex = lowerIndex;
 		}
 		return new String(sortedChars);
+	}
+
+	public static void main(String[] args) {
+		String inputString = "lldtLDTAtttJCcccGggg";
+		System.out.println(inputString);
+		String resultString = findChildren(inputString);
+		System.out.println("Result: " + resultString);
 	}
 
 }

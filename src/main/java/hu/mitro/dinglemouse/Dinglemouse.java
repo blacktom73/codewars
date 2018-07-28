@@ -14,4 +14,9 @@ public class Dinglemouse {
 		return (long) 123 - a;
 	}
 
+	public static void main(String[] args) {
+		int a = 500;
+		final long b = Dinglemouse.int123(a);
+		System.out.println("" + a + " + " + b + " = " + (int) (a + b));
+	}
 }
