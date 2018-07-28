@@ -1,4 +1,4 @@
-package romannumerals;
+package main.java.hu.mitro.romannumerals;
 
 import static org.junit.Assert.assertEquals;
 

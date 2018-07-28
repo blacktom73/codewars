@@ -1,24 +1,24 @@
-package romannumerals;
+package main.java.hu.mitro.romannumerals;
 
 enum RomanNumbers {
 
-	I("I", 1),
-	V("V", 5),
-	X("X", 10),
-	L("L", 50),
-	C("C", 100),
-	D("D", 500),
-	M("M", 1000);
+	I('I', 1),
+	V('V', 5),
+	X('X', 10),
+	L('L', 50),
+	C('C', 100),
+	D('D', 500),
+	M('M', 1000);
 
-	private String number;
+	private char number;
 	private int value;
 
-	RomanNumbers(String number, int value) {
+	RomanNumbers(char number, int value) {
 		this.number = number;
 		this.value = value;
 	}
 
-	public String getNumber() {
+	public char getNumber() {
 		return number;
 	}
 
@@ -39,8 +39,7 @@ public class Conversion {
 					resultNumber.append(RomanNumbers.M);
 				}
 			} else if (n == 1000) {
-				n -= RomanNumbers.M.getValue();
-				resultNumber.append(RomanNumbers.M);
+				n = appendOneLetter(n, resultNumber);
 			} else if (n > 500) {
 				int multiplier = n / 500;
 				n -= RomanNumbers.D.getValue() * multiplier;
@@ -91,11 +90,32 @@ public class Conversion {
 				resultNumber.append(RomanNumbers.I);
 			}
 		}
+		changeRomanFourIfItNeeds(resultNumber);
 		return resultNumber.toString();
 	}
 
+	private int appendOneLetter(int n, StringBuilder resultNumber) {
+		n -= RomanNumbers.M.getValue();
+		resultNumber.append(RomanNumbers.M);
+		return n;
+	}
+
+	private void changeRomanFourIfItNeeds(StringBuilder sb) {
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == RomanNumbers.I.getNumber()) {
+				if (i + 3 < sb.length() && sb.charAt(i + 1) == RomanNumbers.I.getNumber()
+						&& sb.charAt(i + 2) == RomanNumbers.I.getNumber()
+						&& sb.charAt(i + 3) == RomanNumbers.I.getNumber()) {
+					sb.delete(i + 2, i + 4);
+					sb.setCharAt(i + 1, 'V');
+					i = i + 2;
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) {
-		int number = 1666;
+		int number = 9;
 		System.out.println(new Conversion().solution(number));
 	}
 }
