@@ -10,16 +10,16 @@ enum RomanNumbers {
 	D('D', 500),
 	M('M', 1000);
 
-	private char number;
+	private char romanNumber;
 	private int value;
 
 	RomanNumbers(char number, int value) {
-		this.number = number;
+		romanNumber = number;
 		this.value = value;
 	}
 
-	public char getNumber() {
-		return number;
+	public char getRomanNumber() {
+		return romanNumber;
 	}
 
 	public int getValue() {
@@ -90,7 +90,12 @@ public class Conversion {
 				resultNumber.append(RomanNumbers.I);
 			}
 		}
+		changeRomanNineIfItNeeds(resultNumber);
 		changeRomanFourIfItNeeds(resultNumber);
+		changeRomanNinetyIfItNeeds(resultNumber);
+		changeRomanNinehundredIfItNeeds(resultNumber);
+		changeRomanFourtyIfItNeeds(resultNumber);
+		changeRomanFourhundredIfItNeeds(resultNumber);
 		return resultNumber.toString();
 	}
 
@@ -102,12 +107,94 @@ public class Conversion {
 
 	private void changeRomanFourIfItNeeds(StringBuilder sb) {
 		for (int i = 0; i < sb.length(); i++) {
-			if (sb.charAt(i) == RomanNumbers.I.getNumber()) {
-				if (i + 3 < sb.length() && sb.charAt(i + 1) == RomanNumbers.I.getNumber()
-						&& sb.charAt(i + 2) == RomanNumbers.I.getNumber()
-						&& sb.charAt(i + 3) == RomanNumbers.I.getNumber()) {
-					sb.delete(i + 2, i + 4);
+			if (sb.charAt(i) == RomanNumbers.I.getRomanNumber()) {
+				if (i + 3 < sb.length()
+						&& sb.charAt(i + 1) == RomanNumbers.I.getRomanNumber()
+						&& sb.charAt(i + 2) == RomanNumbers.I.getRomanNumber()
+						&& sb.charAt(i + 3) == RomanNumbers.I.getRomanNumber()) {
 					sb.setCharAt(i + 1, 'V');
+					sb.delete(i + 2, i + 4);
+					i = i + 2;
+				}
+			}
+		}
+	}
+
+	private void changeRomanFourtyIfItNeeds(StringBuilder sb) {
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == RomanNumbers.X.getRomanNumber()) {
+				if (i + 3 < sb.length()
+						&& sb.charAt(i + 1) == RomanNumbers.X.getRomanNumber()
+						&& sb.charAt(i + 2) == RomanNumbers.X.getRomanNumber()
+						&& sb.charAt(i + 3) == RomanNumbers.X.getRomanNumber()) {
+					sb.setCharAt(i + 1, 'L');
+					sb.delete(i + 2, i + 4);
+					i = i + 2;
+				}
+			}
+		}
+	}
+
+	private void changeRomanFourhundredIfItNeeds(StringBuilder sb) {
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == RomanNumbers.C.getRomanNumber()) {
+				if (i + 3 < sb.length()
+						&& sb.charAt(i + 1) == RomanNumbers.C.getRomanNumber()
+						&& sb.charAt(i + 2) == RomanNumbers.C.getRomanNumber()
+						&& sb.charAt(i + 3) == RomanNumbers.C.getRomanNumber()) {
+					sb.setCharAt(i + 1, 'D');
+					sb.delete(i + 2, i + 4);
+					i = i + 2;
+				}
+			}
+		}
+	}
+
+	private void changeRomanNineIfItNeeds(StringBuilder sb) {
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == RomanNumbers.V.getRomanNumber()) {
+				if (i + 4 < sb.length()
+						&& sb.charAt(i + 1) == RomanNumbers.I.getRomanNumber()
+						&& sb.charAt(i + 2) == RomanNumbers.I.getRomanNumber()
+						&& sb.charAt(i + 3) == RomanNumbers.I.getRomanNumber()
+						&& sb.charAt(i + 4) == RomanNumbers.I.getRomanNumber()) {
+					sb.setCharAt(i, 'I');
+					sb.setCharAt(i + 1, 'X');
+					sb.delete(i + 2, i + 5);
+					i = i + 2;
+				}
+			}
+		}
+	}
+
+	private void changeRomanNinetyIfItNeeds(StringBuilder sb) {
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == RomanNumbers.L.getRomanNumber()) {
+				if (i + 4 < sb.length()
+						&& sb.charAt(i + 1) == RomanNumbers.X.getRomanNumber()
+						&& sb.charAt(i + 2) == RomanNumbers.X.getRomanNumber()
+						&& sb.charAt(i + 3) == RomanNumbers.X.getRomanNumber()
+						&& sb.charAt(i + 4) == RomanNumbers.X.getRomanNumber()) {
+					sb.setCharAt(i, 'X');
+					sb.setCharAt(i + 1, 'C');
+					sb.delete(i + 2, i + 5);
+					i = i + 2;
+				}
+			}
+		}
+	}
+
+	private void changeRomanNinehundredIfItNeeds(StringBuilder sb) {
+		for (int i = 0; i < sb.length(); i++) {
+			if (sb.charAt(i) == RomanNumbers.D.getRomanNumber()) {
+				if (i + 4 < sb.length()
+						&& sb.charAt(i + 1) == RomanNumbers.C.getRomanNumber()
+						&& sb.charAt(i + 2) == RomanNumbers.C.getRomanNumber()
+						&& sb.charAt(i + 3) == RomanNumbers.C.getRomanNumber()
+						&& sb.charAt(i + 4) == RomanNumbers.C.getRomanNumber()) {
+					sb.setCharAt(i, 'C');
+					sb.setCharAt(i + 1, 'M');
+					sb.delete(i + 2, i + 5);
 					i = i + 2;
 				}
 			}
@@ -115,7 +202,7 @@ public class Conversion {
 	}
 
 	public static void main(String[] args) {
-		int number = 9;
+		int number = 543;
 		System.out.println(new Conversion().solution(number));
 	}
 }
