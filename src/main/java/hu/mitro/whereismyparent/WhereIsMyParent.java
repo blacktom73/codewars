@@ -1,109 +1,81 @@
 package main.java.hu.mitro.whereismyparent;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /***
- * Mothers arranged dance party for children in school.On that party there are only mothers and
- * their children.All are having great fun on dancing floor when suddenly all lights went out.Its
- * dark night and no one can see eachother.But you were flying nearby and you can see in the dark
- * and have ability to teleport people anywhere you want.
+ * Mothers arranged dance party for children in school.On that party there are
+ * only mothers and their children.All are having great fun on dancing floor
+ * when suddenly all lights went out.Its dark night and no one can see
+ * eachother.But you were flying nearby and you can see in the dark and have
+ * ability to teleport people anywhere you want.
  *
- * Legend: -Uppercase letters stands for mothers,lowercase stand for their children. I.E "A" mothers
- * children are "aaaa". -Function input:String contain only letters,Uppercase letters are unique.
+ * Legend: -Uppercase letters stands for mothers,lowercase stand for their
+ * children. I.E "A" mothers children are "aaaa". -Function input:String contain
+ * only letters,Uppercase letters are unique.
  *
- * Task: Place all people in alphabetical order where Mothers are followed by their children.I.E
- * "aAbaBb" => "AaaBbb".
+ * Task: Place all people in alphabetical order where Mothers are followed by
+ * their children.I.E "aAbaBb" => "AaaBbb".
  *
  * @author Mitró Tamás
  *
  */
 public class WhereIsMyParent {
 
-	static String findChildren(final String text) {
-		// char[] chars = text.toCharArray();
-		// List<Character> upperChars = new ArrayList<>();
-		// List<Character> lowerChars = new ArrayList<>();
-		// List<Character> sortedChars = new ArrayList<>();
-		// for (char ch : chars) {
-		// if (ch >= 'A' && ch <= 'Z') {
-		// upperChars.add(ch);
-		// } else {
-		// lowerChars.add(ch);
-		// }
-		// }
-		// upperChars.sort(null);
-		// lowerChars.sort(null);
-		//
-		// int index = 0;
-		// for (char upperChar : upperChars) {
-		// sortedChars.add(upperChar);
-		// char nextLowerChar = lowerChars.get(index);
-		// while (index < lowerChars.size()
-		// && lowerChars.get(index).equals(nextLowerChar)) {
-		// sortedChars.add(lowerChars.get(index));
-		// index++;
-		// }
-		// }
-		//
-		// return sortedChars.toString();
-		// }
-		//
-		// public static void main(String[] args) {
-		// String inputString = "aAbaBb";
-		// String resultString = findChildren(inputString);
-		// System.out.println(resultString);
-		//
+	static String findChildren(String text) {
 		if ("".equals(text)) {
-			return "";
+			return text;
 		}
 		char[] characters = text.toCharArray();
-		int numberOfUppers = 0;
-		int numberOfLowers = 0;
-		for (int i = 0; i < characters.length; i++) {
-			if (Character.isUpperCase(characters[i])) {
-				numberOfUppers++;
-			} else {
-				numberOfLowers++;
-			}
-		}
-		char[] upperChars = new char[numberOfUppers];
-		char[] lowerChars = new char[numberOfLowers];
-		char[] sortedChars = new char[characters.length];
-
-		int upperIndex = -1;
-		int lowerIndex = -1;
-		int sortedIndex = -1;
-		for (int i = 0; i < characters.length; i++) {
-			if (Character.isUpperCase(characters[i])) {
-				upperIndex++;
-				upperChars[upperIndex] = characters[i];
-			} else {
-				lowerIndex++;
-				lowerChars[lowerIndex] = characters[i];
-			}
-		}
-		Arrays.sort(upperChars);
-		Arrays.sort(lowerChars);
-		System.out.println(upperChars);
-		System.out.println(lowerChars);
-
-		sortedIndex = 0;
-		lowerIndex = 0;
-		int sampleCharIndex = 0;
-		for (int i = 0; i < upperChars.length; i++) {
-			if (upperChars[0] == Character.toUpperCase(lowerChars[0])) {
-				sortedChars[sortedIndex] = upperChars[i];
-				sortedIndex++;
-			}
-			while (lowerIndex < lowerChars.length
-					&& lowerChars[sampleCharIndex] == lowerChars[lowerIndex]) {
-				sortedChars[sortedIndex] = lowerChars[lowerIndex];
-				sortedIndex++;
-				lowerIndex++;
-			}
-			sampleCharIndex = lowerIndex;
-		}
-		return new String(sortedChars);
+		List<Character> upperChars = new ArrayList<>();
+		List<Character> lowerChars = new ArrayList<>();
+		separateChars(characters, upperChars, lowerChars);
+		List<Character> sortedChars = concatenateLists(upperChars, lowerChars);
+		String result = convertToString(sortedChars);
+		return result;
 	}
 
+	private static String convertToString(List<Character> sortedChars) {
+		String result = "";
+		for (Character ch : sortedChars) {
+			result += ch;
+		}
+		return result;
+	}
+
+	private static void separateChars(char[] characters, List<Character> upperChars, List<Character> lowerChars) {
+		for (Character ch : characters) {
+			if (Character.isUpperCase(ch)) {
+				upperChars.add(ch);
+			} else {
+				lowerChars.add(ch);
+			}
+		}
+		sortLists(upperChars, lowerChars);
+	}
+
+	private static void sortLists(List<Character> upperChars, List<Character> lowerChars) {
+		upperChars.sort(null);
+		lowerChars.sort(null);
+	}
+
+	private static List<Character> concatenateLists(List<Character> upperChars, List<Character> lowerChars) {
+		List<Character> resultList = new ArrayList<>();
+		int upperIndex = 0;
+		int lowerIndex = 0;
+		while (upperIndex < upperChars.size()) {
+			resultList.add(upperChars.get(upperIndex));
+			while (lowerIndex < lowerChars.size()
+					&& Character.toUpperCase(lowerChars.get(lowerIndex)) == upperChars.get(upperIndex)) {
+				resultList.add(lowerChars.get(lowerIndex));
+				lowerIndex++;
+			}
+			upperIndex++;
+		}
+		return resultList;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(findChildren("AaaaaaZzzz"));
+	}
 }
