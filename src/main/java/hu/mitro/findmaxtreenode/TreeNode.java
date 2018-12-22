@@ -16,16 +16,23 @@ public class TreeNode {
 		return new TreeNode(null, null, i);
 	}
 
-	public TreeNode withLeftLeaf(int i) {
-		return new TreeNode(new TreeNode(null, null, i), null, value);
-	}
-
-	public TreeNode withLeaves(int i, int j) {
-		return null;
-	}
-
 	public static TreeNode join(int i, TreeNode left2, TreeNode right2) {
 		return new TreeNode(left2, right2, i);
 	}
 
+	public TreeNode withLeftLeaf(int i) {
+		TreeNode left = new TreeNode(null, null, i);
+		return join(this.value, left, null);
+	}
+
+	public TreeNode withLeaves(int i, int j) {
+		TreeNode left = new TreeNode(null, null, i);
+		TreeNode right = new TreeNode(null, null, j);
+		return join(this.value, left, right);
+	}
+
+	@Override
+	public String toString() {
+		return "TreeNode {left=" + left + ", right=" + right +	", value=" + value + "}";
+	}
 }
