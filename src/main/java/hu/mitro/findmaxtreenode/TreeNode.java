@@ -33,6 +33,6 @@ public class TreeNode {
 
 	@Override
 	public String toString() {
-		return "TreeNode {left=" + left + ", right=" + right +	", value=" + value + "}";
+		return "TreeNode { value=" + value + " | left=" + left + ", right=" + right + "	}";
 	}
 }

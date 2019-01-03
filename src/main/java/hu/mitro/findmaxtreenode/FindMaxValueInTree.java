@@ -1,24 +1,30 @@
 package main.java.hu.mitro.findmaxtreenode;
 
+import java.util.List;
+
+
 public class FindMaxValueInTree {
 
-	static int max = Integer.MIN_VALUE;
+	static List<Integer> nodeValues;
 
 	static int findMax(TreeNode root) {
-		if (root.left == null && root.right == null) {
-			return root.value > max ? root.value : max;
-		} else {
-			if (root.left != null && root.right == null) {
-				max = findMax(root.left);
-			}
-			if (root.left == null && root.right != null) {
-				max = findMax(root.right);
-			}
-			if (root.left != null && root.right != null) {
-				max = Integer.max(findMax(root.left), findMax(root.right));
-			}
+		collectNodeValues(root);
+		nodeValues.sort(null);
+		return nodeValues.get(nodeValues.size() - 1);
+	}
+
+	private static void collectNodeValues(TreeNode root) {
+		nodeValues.add(root.value);
+		if (root.left != null && root.right == null) {
+			collectNodeValues(root.left);
 		}
-		return max;
+		if (root.left == null && root.right != null) {
+			collectNodeValues(root.right);
+		}
+		if (root.left != null && root.right != null) {
+			collectNodeValues(root.left);
+			collectNodeValues(root.right);
+		}
 	}
 
 }
