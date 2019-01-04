@@ -1,5 +1,9 @@
 package main.java.hu.mitro.romannumerals;
 
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
+
+
 enum RomanNumbers {
 
 	M("M", 1000),
@@ -33,131 +37,27 @@ enum RomanNumbers {
 	}
 }
 
+
 public class Conversion {
 
 	public String solution(int n) {
+		int multiplier = 0;
 		StringBuilder resultNumber = new StringBuilder();
-		while (n > 0) {
-			if (n > 1000) {
-				int multiplier = n / 1000;
-				n -= RomanNumbers.M.getValue() * multiplier;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.M);
-				}
-			} else if (n == 1000) {
-				n -= RomanNumbers.M.getValue();
-				resultNumber.append(RomanNumbers.M);
-			} else if (n > 900) {
-				n -= RomanNumbers.CM.getValue();
-				resultNumber.append(RomanNumbers.CM);
-				int multiplier = n / 100;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.C);
-					n -= RomanNumbers.C.getValue();
-				}
-			} else if (n == 900) {
-				n -= RomanNumbers.CM.getValue();
-				resultNumber.append(RomanNumbers.CM);
-			} else if (n > 500) {
-				n -= RomanNumbers.D.getValue();
-				resultNumber.append(RomanNumbers.D);
-				int multiplier = n / 100;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.C);
-					n -= RomanNumbers.C.getValue();
-				}
-			} else if (n == 500) {
-				n -= RomanNumbers.D.getValue();
-				resultNumber.append(RomanNumbers.D);
-			} else if (n > 400) {
-				n -= RomanNumbers.CD.getValue();
-				resultNumber.append(RomanNumbers.CD);
-				int multiplier = n / 100;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.C);
-					n -= RomanNumbers.C.getValue();
-				}
-			} else if (n == 400) {
-				n -= RomanNumbers.CD.getValue();
-				resultNumber.append(RomanNumbers.CD);
-			} else if (n > 100) {
-				int multiplier = n / 100;
-				n -= RomanNumbers.C.getValue() * multiplier;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.C);
-				}
-			} else if (n == 100) {
-				n -= RomanNumbers.C.getValue();
-				resultNumber.append(RomanNumbers.C);
-			} else if (n > 90) {
-				n -= RomanNumbers.XC.getValue();
-				resultNumber.append(RomanNumbers.XC);
-				int multiplier = n / 10;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.X);
-					n -= RomanNumbers.X.getValue();
-				}
-			} else if (n == 90) {
-				n -= RomanNumbers.XC.getValue();
-				resultNumber.append(RomanNumbers.XC);
-			} else if (n > 50) {
-				n -= RomanNumbers.L.getValue();
-				resultNumber.append(RomanNumbers.L);
-				int multiplier = n / 10;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.X);
-					n -= RomanNumbers.X.getValue();
-				}
-			} else if (n == 50) {
-				n -= RomanNumbers.L.getValue();
-				resultNumber.append(RomanNumbers.L);
-			} else if (n > 40) {
-				n -= RomanNumbers.XL.getValue();
-				resultNumber.append(RomanNumbers.XL);
-				int multiplier = n / 10;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.X);
-					n -= RomanNumbers.X.getValue();
-				}
-			} else if (n == 40) {
-				n -= RomanNumbers.XL.getValue();
-				resultNumber.append(RomanNumbers.XL);
-			} else if (n > 10) {
-				int multiplier = n / 10;
-				n -= RomanNumbers.X.getValue() * multiplier;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.X);
-				}
-			} else if (n == 10) {
-				n -= RomanNumbers.X.getValue();
-				resultNumber.append(RomanNumbers.X);
-			} else if (n == 9) {
-				n -= RomanNumbers.IX.getValue();
-				resultNumber.append(RomanNumbers.IX);
-			} else if (n > 5) {
-				n -= RomanNumbers.V.getValue();
-				resultNumber.append(RomanNumbers.V);
-				int multiplier = n / 1;
-				for (int i = 0; i < multiplier; i++) {
-					resultNumber.append(RomanNumbers.I);
-					n -= RomanNumbers.I.getValue();
-				}
-			} else if (n == 5) {
-				n -= RomanNumbers.V.getValue();
-				resultNumber.append(RomanNumbers.V);
-			} else if (n == 4) {
-				n -= RomanNumbers.IV.getValue();
-				resultNumber.append(RomanNumbers.IV);
-			} else {
-				n -= RomanNumbers.I.getValue();
-				resultNumber.append(RomanNumbers.I);
+		RomanNumbers[] romanNumbers = RomanNumbers.values();
+
+		for (RomanNumbers romanNumber : romanNumbers) {
+			multiplier = n / romanNumber.getValue();
+			n -= romanNumber.getValue() * multiplier;
+			for (int x = 0; x < multiplier; x++) {
+				resultNumber.append(romanNumber.getRomanNumber());
 			}
 		}
+
 		return resultNumber.toString();
 	}
 
 	public static void main(String[] args) {
-		int number = 48;
+		int number = 1984;
 		System.out.println(new Conversion().solution(number));
 	}
 }
