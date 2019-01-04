@@ -2,19 +2,19 @@ package main.java.hu.mitro.romannumerals;
 
 enum RomanNumbers {
 
-	I("I", 1),
-	IV("IV", 4),
-	V("V", 5),
-	IX("IX", 9),
-	X("X", 10),
-	XL("XL", 40),
-	L("L", 50),
-	XC("XC", 90),
-	C("C", 100),
-	CD("CD", 400),
-	D("D", 500),
+	M("M", 1000),
 	CM("CM", 900),
-	M("M", 1000);
+	D("D", 500),
+	CD("CD", 400),
+	C("C", 100),
+	XC("XC", 90),
+	L("L", 50),
+	XL("XL", 40),
+	X("X", 10),
+	IX("IX", 9),
+	V("V", 5),
+	IV("IV", 4),
+	I("I", 1);
 
 	private String romanNumber;
 	private int value;
